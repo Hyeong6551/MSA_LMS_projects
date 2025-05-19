@@ -5,7 +5,7 @@ spring:
   application:
     name: gateway-service
   datasource:
-    url: jdbc:mysql://localhost:3309/lms?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:3306/lms?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: user
     password: user123
