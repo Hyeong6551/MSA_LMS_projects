@@ -3,10 +3,8 @@ services:
     image: mysql:8.0
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: lms
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user123
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=lms
     command: --bind-address=0.0.0.0
     ports:
       - "3306:3306"
@@ -96,10 +94,10 @@ services:
     ports:
       - "9696:9696"
     environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USER: user
-      DB_PASSWORD: "user123"
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user123
+      - MYSQL_DATABASE=lms
     networks:
       - msa-network
 
@@ -115,7 +113,7 @@ services:
       DB_HOST: mysql
       DB_PORT: 3306
       DB_USER: user
-      DB_PASSWORD: "user123"
+      DB_PASSWORD: user123
     networks:
       - msa-network
 
@@ -183,10 +181,10 @@ services:
     ports:
       - "9595:9595"
     environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USER: user
-      DB_PASSWORD: user123
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user123
+      - MYSQL_DATABASE=lms
     networks:
       - msa-network
 
