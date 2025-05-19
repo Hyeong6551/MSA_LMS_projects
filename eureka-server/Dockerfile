@@ -15,4 +15,4 @@ COPY build/libs/eureka-server-0.0.1-SNAPSHOT.jar eureka-server.jar
 EXPOSE 8761
 
 # 컨테이너 시작 시 실행할 명령어
-ENTRYPOINT exec java $JAVA_OPTS -jar eureka-server.jar
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar eureka-server.jar"]

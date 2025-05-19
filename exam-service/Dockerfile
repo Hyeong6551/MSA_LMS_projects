@@ -15,4 +15,4 @@ COPY build/libs/exam-service-0.0.1-SNAPSHOT.jar exam-service.jar
 EXPOSE 8003
 
 # 컨테이너 시작 시 실행할 명령어
-ENTRYPOINT exec java $JAVA_OPTS -jar exam-service.jar
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar exam-service.jar"]

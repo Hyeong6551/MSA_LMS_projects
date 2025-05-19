@@ -16,4 +16,4 @@ COPY build/libs/admin-service-0.0.1-SNAPSHOT.jar admin-service.jar
 EXPOSE 9595
 
 # 6. 컨테이너 시작 시 실행할 명령어
-ENTRYPOINT exec java $JAVA_OPTS -jar admin-service.jar
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar admin-service.jar"]

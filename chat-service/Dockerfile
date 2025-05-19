@@ -15,4 +15,4 @@ COPY build/libs/chat-service-0.0.1-SNAPSHOT.jar chat-service.jar
 EXPOSE 9292
 
 # 컨테이너 시작 시 실행할 명령어
-ENTRYPOINT exec java $JAVA_OPTS -jar chat-service.jar
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar chat-service.jar"]

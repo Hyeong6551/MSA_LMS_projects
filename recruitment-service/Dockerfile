@@ -15,4 +15,4 @@ COPY build/libs/recruitment-service-0.0.1-SNAPSHOT.jar recruitment-service.jar
 EXPOSE 7979
 
 # 컨테이너 시작 시 실행할 명령어
-ENTRYPOINT exec java $JAVA_OPTS -jar recruitment-service.jar
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar recruitment-service.jar"]

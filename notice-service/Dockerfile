@@ -15,4 +15,4 @@ COPY build/libs/notice-service-0.0.1-SNAPSHOT.jar notice-service.jar
 EXPOSE 9797
 
 # 컨테이너 시작 시 실행할 명령어
-ENTRYPOINT exec java $JAVA_OPTS -jar notice-service.jar
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar notice-service.jar"]

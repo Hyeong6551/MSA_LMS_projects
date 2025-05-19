@@ -15,4 +15,4 @@ COPY build/libs/gateway-0.0.1-SNAPSHOT.jar gateway.jar
 EXPOSE 9898
 
 # 컨테이너 시작 시 실행할 명령어
-ENTRYPOINT exec java $JAVA_OPTS -jar gateway.jar
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar gateway.jar"]
