@@ -35,4 +35,4 @@ logging:
     edu.ct.admin: DEBUG
 
 openai:
-  api -key: ${OPENAI_API_KEY:default-key}
+  api-key: ${OPENAI_API_KEY:default-key}
