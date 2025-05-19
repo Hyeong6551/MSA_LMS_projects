@@ -9,7 +9,7 @@ services:
       MYSQL_PASSWORD: user123
     command: --bind-address=0.0.0.0
     ports:
-      - "3309:3306"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
