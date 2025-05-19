@@ -6,7 +6,9 @@ WORKDIR /app
 
 # 패키지 파일 복사
 COPY package.json ./
-COPY yarn.lock ./
+
+# yarn.lock이 있는 경우만 복사
+COPY yarn.lock . || echo "No yarn.lock file found, continuing..."
 
 # 패키지 설치
 RUN yarn install
