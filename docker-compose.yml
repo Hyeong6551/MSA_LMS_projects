@@ -48,7 +48,7 @@ services:
       - "8003:8003"
     environment:
       DB_HOST: mysql
-      DB_PORT: 3309
+      DB_PORT: 3306
       DB_USER: user
       DB_PASSWORD: user123
     networks:
@@ -64,7 +64,7 @@ services:
       - "9898:9898"
     environment:
       DB_HOST: mysql
-      DB_PORT: 3309
+      DB_PORT: 3306
       DB_USER: user
       DB_PASSWORD: user123
       REDIS_HOST: redis
@@ -82,7 +82,7 @@ services:
       - "9696:9696"
     environment:
       DB_HOST: mysql
-      DB_PORT: 3309
+      DB_PORT: 3306
       DB_USER: user
       DB_PASSWORD: user123
     networks:
@@ -98,7 +98,7 @@ services:
       - "9797:9797"
     environment:
       DB_HOST: mysql
-      DB_PORT: 3309
+      DB_PORT: 3306
       DB_USER: user
       DB_PASSWORD: user123
     networks:
@@ -183,7 +183,7 @@ services:
       - "9595:9595"
     environment:
       DB_HOST: mysql
-      DB_PORT: 3309
+      DB_PORT: 3306
       DB_USER: user
       DB_PASSWORD: user123
     networks:
