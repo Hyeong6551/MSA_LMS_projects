@@ -9,10 +9,10 @@ ENV JAVA_OPTS="-Xms512m -Xmx1024m"
 WORKDIR /app
 
 # JAR 파일 복사
-COPY build/libs/*.jar recruitment-service.jar
+COPY build/libs/recruitment-service-0.0.1-SNAPSHOT.jar recruitment-service.jar
 
 # 애플리케이션 포트 개방
 EXPOSE 7979
 
 # 컨테이너 시작 시 실행할 명령어
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar recruitment-service.jar"]
+ENTRYPOINT exec java $JAVA_OPTS -jar recruitment-service.jar
