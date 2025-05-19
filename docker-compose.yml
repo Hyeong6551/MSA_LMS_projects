@@ -1,4 +1,20 @@
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: lms
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user123
+    command: --bind-address=0.0.0.0
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - msa-network
+
   # 1. React Frontend
   frontend:
     container_name: frontend
@@ -21,8 +37,8 @@ services:
     ports:
       - "9292:9292"
     environment:
-      REDIS_HOST: "redis"
-      REDIS_PORT: "6379"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     networks:
       - msa-network
 
@@ -46,10 +62,10 @@ services:
     ports:
       - "8003:8003"
     environment:
-      DB_HOST: "mysql"
-      DB_PORT: "3306"
-      DB_USER: "user"
-      DB_PASSWORD: "user123"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: user
+      DB_PASSWORD: user123
     networks:
       - msa-network
 
@@ -62,12 +78,12 @@ services:
     ports:
       - "9898:9898"
     environment:
-      DB_HOST: "mysql"
-      DB_PORT: "3306"
-      DB_USER: "user"
-      DB_PASSWORD: "user123"
-      REDIS_HOST: "redis"
-      REDIS_PORT: "6379"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: user
+      DB_PASSWORD: user123
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     networks:
       - msa-network
 
@@ -80,9 +96,9 @@ services:
     ports:
       - "9696:9696"
     environment:
-      DB_HOST: "mysql"
-      DB_PORT: "3306"
-      DB_USER: "user"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: user
       DB_PASSWORD: "user123"
     networks:
       - msa-network
@@ -96,9 +112,9 @@ services:
     ports:
       - "9797:9797"
     environment:
-      DB_HOST: "mysql"
-      DB_PORT: "3306"
-      DB_USER: "user"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: user
       DB_PASSWORD: "user123"
     networks:
       - msa-network
@@ -112,8 +128,8 @@ services:
     ports:
       - "7979:7979"
     environment:
-      REDIS_HOST: "redis"
-      REDIS_PORT: "6379"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     networks:
       - msa-network
 
@@ -125,20 +141,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "9494:9494"
-    networks:
-      - msa-network
-
-  # 10. MySQL Database (3309 포트 사용)
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: "1234"
-      MYSQL_DATABASE: "lms"
-    ports:
-      - "3309:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
     networks:
       - msa-network
 
@@ -181,10 +183,10 @@ services:
     ports:
       - "9595:9595"
     environment:
-      DB_HOST: "mysql"
-      DB_PORT: "3306"
-      DB_USER: "user"
-      DB_PASSWORD: "user123"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: user
+      DB_PASSWORD: user123
     networks:
       - msa-network
 
