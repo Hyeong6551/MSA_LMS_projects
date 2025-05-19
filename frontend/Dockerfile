@@ -19,12 +19,12 @@ ENV VITE_API_URL=$VITE_API_URL
 RUN yarn build
 
 # Stage 2: Serve with Nginx
-FROM nginx:latest
+FROM nginx:alpine
 
-# Nginx 설정 파일 복사
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+# Nginx 설정 파일 복사 (경로 수정)
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Vite 빌드 결과 복사
+# Vite 빌드 결과 복사 (빌드 경로 수정)
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # 포트 개방
