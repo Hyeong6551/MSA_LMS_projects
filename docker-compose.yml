@@ -1,4 +1,14 @@
 services:
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - msa-network
+
   mysql:
     image: mysql:8.0
     container_name: mysql
@@ -13,7 +23,14 @@ services:
     networks:
       - msa-network
 
-  # 1. React Frontend
+  redis:
+    image: redis:6.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - msa-network
+
   frontend:
     container_name: frontend
     build:
@@ -26,7 +43,6 @@ services:
     networks:
       - msa-network
 
-  # 2. Chat Service (Redis 사용)
   chat-service:
     container_name: chat-service
     build:
@@ -48,18 +64,6 @@ services:
       - mysql
       - redis
 
-  # 3. Eureka Server
-  eureka-server:
-    container_name: eureka-server
-    build:
-      context: ./eureka-server
-      dockerfile: Dockerfile
-    ports:
-      - "8761:8761"
-    networks:
-      - msa-network
-
-  # 4. Exam Service (MySQL 사용)
   exam-service:
     container_name: exam-service
     build:
@@ -78,7 +82,6 @@ services:
       - eureka-server
       - mysql
 
-  # 5. Gateway (MySQL + Redis 사용)
   gateway:
     container_name: gateway
     build:
@@ -100,7 +103,6 @@ services:
       - mysql
       - redis
 
-  # 6. Lecture Service (MySQL 사용)
   lecture-service:
     container_name: lecture-service
     build:
@@ -119,7 +121,6 @@ services:
       - eureka-server
       - mysql
 
-  # 7. Notice Service (MySQL 사용)
   notice-service:
     container_name: notice-service
     build:
@@ -138,7 +139,6 @@ services:
       - eureka-server
       - mysql
 
-  # 8. Recruitment Service (Redis 사용)
   recruitment-service:
     container_name: recruitment-service
     build:
@@ -155,7 +155,6 @@ services:
       - eureka-server
       - redis
 
-  # 9. Review Service
   review-service:
     container_name: review-service
     build:
@@ -174,16 +173,25 @@ services:
       - eureka-server
       - mysql
 
-  # 11. Redis Cache
-  redis:
-    image: redis:6.2
-    container_name: redis
+  admin-service:
+    container_name: admin-service
+    build:
+      context: ./admin-service
+      dockerfile: Dockerfile
     ports:
-      - "6379:6379"
+      - "9595:9595"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user123
+      - MYSQL_DATABASE=lms
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - mysql
 
-  # 12. Nginx Reverse Proxy
+
   nginx:
     image: nginx:latest
     container_name: nginx
@@ -203,29 +211,8 @@ services:
       - notice-service
       - recruitment-service
       - review-service
-
-  # Admin Service 추가
-  admin-service:
-    container_name: admin-service
-    build:
-      context: ./admin-service
-      dockerfile: Dockerfile
-    ports:
-      - "9595:9595"
-    environment:
-      - MYSQL_HOST=mysql
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=user123
-      - MYSQL_DATABASE=lms
-    networks:
-      - msa-network
-    depends_on:
-      - eureka-server
-      - mysql
-
 networks:
   msa-network:
     driver: bridge
-
 volumes:
   mysql_data:
