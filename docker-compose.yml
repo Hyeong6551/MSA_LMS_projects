@@ -35,10 +35,18 @@ services:
     ports:
       - "9292:9292"
     environment:
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user123
+      - MYSQL_DATABASE=lms
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - mysql
+      - redis
 
   # 3. Eureka Server
   eureka-server:
@@ -60,12 +68,15 @@ services:
     ports:
       - "8003:8003"
     environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USER: user
-      DB_PASSWORD: user123
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user123
+      - MYSQL_DATABASE=lms
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - mysql
 
   # 5. Gateway (MySQL + Redis 사용)
   gateway:
@@ -84,6 +95,10 @@ services:
       - REDIS_PORT=6379
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - mysql
+      - redis
 
   # 6. Lecture Service (MySQL 사용)
   lecture-service:
@@ -100,6 +115,9 @@ services:
       - MYSQL_DATABASE=lms
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - mysql
 
   # 7. Notice Service (MySQL 사용)
   notice-service:
@@ -110,12 +128,15 @@ services:
     ports:
       - "9797:9797"
     environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USER: user
-      DB_PASSWORD: user123
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user123
+      - MYSQL_DATABASE=lms
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - mysql
 
   # 8. Recruitment Service (Redis 사용)
   recruitment-service:
@@ -126,10 +147,13 @@ services:
     ports:
       - "7979:7979"
     environment:
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - redis
 
   # 9. Review Service
   review-service:
@@ -137,10 +161,18 @@ services:
     build:
       context: ./review-service
       dockerfile: Dockerfile
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user123
+      - MYSQL_DATABASE=lms
     ports:
       - "9494:9494"
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - mysql
 
   # 11. Redis Cache
   redis:
@@ -187,6 +219,9 @@ services:
       - MYSQL_DATABASE=lms
     networks:
       - msa-network
+    depends_on:
+      - eureka-server
+      - mysql
 
 networks:
   msa-network:
