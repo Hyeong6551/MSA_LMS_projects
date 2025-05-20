@@ -31,17 +31,17 @@ services:
     networks:
       - msa-network
 
-  frontend:
-    container_name: frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        - VITE_API_URL=http://gateway:9898
-    ports:
-      - "3000:3000"
-    networks:
-      - msa-network
+#  frontend:
+#    container_name: frontend
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+#      args:
+#        - VITE_API_URL=http://gateway:9898
+#    ports:
+#      - "3000:3000"
+#    networks:
+#      - msa-network
 
   chat-service:
     container_name: chat-service
@@ -191,25 +191,26 @@ services:
       - eureka-server
       - mysql
 
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - msa-network
-    depends_on:
-      - frontend
-      - gateway
-      - eureka-server
-      - chat-service
-      - exam-service
-      - lecture-service
-      - notice-service
-      - recruitment-service
-      - review-service
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx
+#    ports:
+#      - "80:80"
+#    volumes:
+#      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+#    networks:
+#      - msa-network
+#    depends_on:
+#      - frontend
+#      - gateway
+#      - eureka-server
+#      - chat-service
+#      - exam-service
+#      - lecture-service
+#      - notice-service
+#      - recruitment-service
+#      - review-service
+
 networks:
   msa-network:
     driver: bridge
