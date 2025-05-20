@@ -191,7 +191,6 @@ services:
       - eureka-server
       - mysql
 
-
   nginx:
     image: nginx:latest
     container_name: nginx
