@@ -31,17 +31,17 @@ services:
     networks:
       - msa-network
 
-#  frontend:
-#    container_name: frontend
-#    build:
-#      context: ./frontend
-#      dockerfile: Dockerfile
-#      args:
-#        - VITE_API_URL=http://gateway:9898
-#    ports:
-#      - "3000:3000"
-#    networks:
-#      - msa-network
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://43.202.87.223:9898
+    ports:
+      - "3000:3000"
+    networks:
+      - msa-network
 
   chat-service:
     container_name: chat-service
@@ -197,7 +197,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - msa-network
     depends_on:
