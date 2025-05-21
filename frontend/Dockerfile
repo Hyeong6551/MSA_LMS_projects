@@ -1,4 +1,4 @@
-# Stage 1: Build the Vite application
+# Stage 1: Vite 애플리케이션 빌드
 FROM node:20-alpine AS builder
 
 # 작업 디렉토리 설정
@@ -14,13 +14,10 @@ RUN npm install
 # 소스 코드 복사
 COPY . .
 
-## 메모리 할당량을 늘려서 빌드 실행
-#ENV NODE_OPTIONS="--max-old-space-size=4096"
-
 # Vite 빌드 실행
-RUN npm run dev
+RUN npm run build
 
-# Stage 2: Serve with Nginx
+# Stage 2: Nginx로 서비스
 FROM nginx:alpine
 
 # Nginx 설정 파일 복사
