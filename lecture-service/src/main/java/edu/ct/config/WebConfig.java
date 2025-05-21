@@ -11,20 +11,19 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/completions/**")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://43.202.87.223:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
 
-        // ✅ 여기 * 쓰지 말고, completions 제외한 다른 것들도 localhost:3000만 허용해
         registry.addMapping("/api/lectures/**")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://43.202.87.223:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
 
         registry.addMapping("/api/contents/**")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://43.202.87.223:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);

@@ -23,7 +23,7 @@ const Login: React.FC<Props> = ({ onLogin }) => {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('username', res.data.username);
             localStorage.setItem('role', res.data.role);
-            localStorage.setItem('userId', res.data.role);
+            localStorage.setItem('userId', res.data.userId);
 
             // 상태 전달
             onLogin(res.data.username, res.data.role, res.data.userId);

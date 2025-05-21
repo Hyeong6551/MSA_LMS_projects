@@ -21,7 +21,6 @@ public class CorsConfig {
         corsConfig.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // 🔥 "/api/**" 전체 허용!
         source.registerCorsConfiguration("/api/**", corsConfig);
 
         return new CorsWebFilter(source);
