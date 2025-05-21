@@ -201,7 +201,6 @@ services:
     networks:
       - msa-network
     depends_on:
-      - frontend
       - gateway
       - eureka-server
       - chat-service
