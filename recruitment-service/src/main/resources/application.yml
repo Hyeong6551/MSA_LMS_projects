@@ -4,15 +4,6 @@ server:
 spring:
   application:
     name: recruitment-service
-#  datasource:
-#    url: jdbc:mysql://localhost:3309/lms?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: user
-#    password: user123
-#  jpa:
-#    database-platform: org.hibernate.dialect.MySQL8Dialect
-#    hibernate:
-#      ddl-auto: update
   data:
     redis:
       port: 6379
