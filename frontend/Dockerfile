@@ -10,7 +10,7 @@ RUN ls -la /app/dist
 # 서비스 단계
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
-COPY --from=builder /app/dist .
+COPY --from=builder /app/dist/ .
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # 빌드 결과물 확인

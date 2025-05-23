@@ -4,8 +4,6 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - "3000:80"
     networks:
       - msa-network
     depends_on:
