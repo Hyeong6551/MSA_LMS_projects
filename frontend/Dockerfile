@@ -10,12 +10,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# 빌드 결과물 확인
-RUN echo "=== Build output contents ===" && \
-    ls -la /app/dist && \
-    echo "=== index.html contents ===" && \
-    cat /app/dist/index.html
-
 # 서비스 단계
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
@@ -23,17 +17,13 @@ WORKDIR /usr/share/nginx/html
 # 기존 nginx 기본 설정 제거
 RUN rm -rf /usr/share/nginx/html/*
 
-# 로컬 빌드 결과물 복사
-COPY ./dist/ .
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+# 빌드 결과물 복사
+COPY --from=builder /app/dist/ .
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # 권한 설정
 RUN chmod -R 755 /usr/share/nginx/html && \
     chown -R nginx:nginx /usr/share/nginx/html
-
-# 최종 디렉토리 내용 확인
-RUN echo "=== Final nginx directory contents ===" && \
-    ls -la /usr/share/nginx/html
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
