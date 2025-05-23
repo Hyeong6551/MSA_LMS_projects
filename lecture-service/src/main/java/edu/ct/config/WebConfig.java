@@ -11,19 +11,19 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/completions/**")
-                .allowedOrigins("http://ctlms.shop")
+                .allowedOrigins("https://ctlms.shop", "http://ctlms.shop")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
 
         registry.addMapping("/api/lectures/**")
-                .allowedOrigins("http://ctlms.shop")
+                .allowedOrigins("https://ctlms.shop", "http://ctlms.shop")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
 
         registry.addMapping("/api/contents/**")
-                .allowedOrigins("http://ctlms.shop")
+                .allowedOrigins("https://ctlms.shop", "http://ctlms.shop")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
