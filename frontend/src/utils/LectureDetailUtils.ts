@@ -147,12 +147,21 @@ export const createNotice = async (
             throw new Error('관리자만 공지사항을 작성할 수 있습니다.');
         }
         
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('로그인이 필요합니다.');
+        }
+        
         const payload = {
             ...notice,
             author: getCurrentUser(), // 현재 로그인한 사용자 이름 사용
         };
         
-        const res = await axios.post(`/api/lectures/${lectureId}/notices`, payload);
+        const res = await axios.post(`/api/lectures/${lectureId}/notices`, payload, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return res.data;
     } catch (error) {
         console.error('공지사항 등록 실패', error);
