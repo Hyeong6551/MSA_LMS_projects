@@ -27,8 +27,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
-
-        // 필요한 API가 더 있다면 똑같이 추가
     }
 
     @Override
