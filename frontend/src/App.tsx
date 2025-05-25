@@ -108,6 +108,7 @@ const App: React.FC = () => {
                 </Route>
                 <Route path="/admin/lectures" element={<RequireAdmin><LectureManagement /></RequireAdmin>} />
                 <Route path="/admin/lectures/:lectureId/contents" element={<RequireAdmin><ContentManagement /></RequireAdmin>} />
+                <Route path="/admin/users" element={<Users />} />
             </Routes>
 
             <ChatWidget />

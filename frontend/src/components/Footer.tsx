@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Footer.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [role, setRole] = useState<string | null>(null);
@@ -46,7 +47,7 @@ const Footer = () => {
             <p>개인정보처리방침</p>
             {role === 'ADMIN' && (
               <li>
-                <a href="/admin/users" className="admin-link">관리자 페이지</a>
+                <Link to="/admin/users" className="admin-link">관리자 페이지</Link>
               </li>
             )}
           </ul>
