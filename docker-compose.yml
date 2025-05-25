@@ -59,7 +59,6 @@ services:
       - MYSQL_DATABASE=lms
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
     networks:
       - msa-network
     depends_on:
