@@ -19,6 +19,10 @@ spring:
         locator:
           enabled: true
       routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
         - id: notice-service
           uri: lb://NOTICE-SERVICE
           predicates:
@@ -30,7 +34,7 @@ spring:
         - id: exam-service
           uri: lb://EXAM-SERVICE
           predicates:
-            - Path=/api/exams/**
+            - Path=/api/exams/**, /api/grading/**
         - id: progress-service
           uri: lb://PROGRESS-SERVICE
           predicates:
@@ -38,7 +42,7 @@ spring:
         - id: admin-service
           uri: lb://ADMIN-SERVICE
           predicates:
-            - Path=/api/admins/**, /api/users/** 
+            - Path=/api/admins/**, /api/users/**
         - id: review-service
           uri: lb://REVIEW-SERVICE
           predicates:
