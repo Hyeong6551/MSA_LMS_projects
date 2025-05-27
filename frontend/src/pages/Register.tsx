@@ -68,6 +68,8 @@ const Register: React.FC = () => {
     const [isPhoneVerified, setIsPhoneVerified] = useState(false);
     const [sent, setSent] = useState(false);
     const [sending, setSending] = useState(false);
+    const [timer, setTimer] = useState(0);
+    const [canResend, setCanResend] = useState(true);
 
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
@@ -163,12 +165,33 @@ const Register: React.FC = () => {
             });
             alert('인증번호가 발송되었습니다.');
             setSent(true);
+            setTimer(180);
+            setCanResend(false);
         } catch (error) {
             console.error('SMS 발송 실패', error);
             alert('SMS 발송에 실패했습니다.');
         } finally {
             setSending(false);
         }
+    };
+
+    // 타이머 감소 로직
+    useEffect(() => {
+        if (timer > 0) {
+            const countdown = setInterval(() => {
+                setTimer((prev) => prev - 1);
+            }, 1000);
+            return () => clearInterval(countdown);
+        } else {
+            setCanResend(true); // 타이머 끝나면 재전송 허용
+        }
+    }, [timer]);
+
+// 시간 포맷 (mm:ss)
+    const formatTime = (seconds) => {
+        const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+        const s = String(seconds % 60).padStart(2, '0');
+        return `${m}:${s}`;
     };
 
     // 인증번호 검증
@@ -371,7 +394,7 @@ const Register: React.FC = () => {
 
                             variant="outlined"
                             onClick={sendAuthCode}
-                            disabled={sending || !form.phone1 || !form.phone2 || !form.phone3}
+                            disabled={!canResend ||sending || !form.phone1 || !form.phone2 || !form.phone3}
                             sx={{
                                 mt: 1,
                                 mb: 1,
@@ -411,6 +434,13 @@ const Register: React.FC = () => {
                                     인증 확인
                                 </Button>
                             </Box>
+                        )}
+
+                        {/* 타이머 메시지 */}
+                        {!canResend && timer > 0 && (
+                            <Typography variant="body2" color="textSecondary">
+                                인증번호 유효시간: {formatTime(timer)} 남음
+                            </Typography>
                         )}
 
                         {/* 이메일 정보 */}

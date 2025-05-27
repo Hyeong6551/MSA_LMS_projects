@@ -53,6 +53,13 @@ public class SmsService {
 
     public boolean verifyCode(String phone, String inputCode) {
         String savedCode = redisTemplate.opsForValue().get(phone);
-        return inputCode.equals(savedCode);
+        if (savedCode == null) {
+            return false;
+        }
+        boolean isValid = inputCode.equals(savedCode);
+        if (isValid) {
+            redisTemplate.delete(phone);
+        }
+        return isValid;
     }
 }
