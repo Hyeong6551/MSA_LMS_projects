@@ -9,8 +9,6 @@ interface Message {
     timestamp: string;
 }
 
-const API_BASE_URL = 'http://localhost:9898';
-
 const ChatWidget: React.FC = () => {
     const [open, setOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -21,7 +19,7 @@ const ChatWidget: React.FC = () => {
     const fetchMessages = async () => {
         if (!userId) return;
         try {
-            const res = await axios.get(`${API_BASE_URL}/api/chat/${userId}`);
+            const res = await axios.get(`api/chat/${userId}`);
 
             // API 응답이 올바른지 확인
             if (res.status === 200 && Array.isArray(res.data)) {
@@ -56,7 +54,7 @@ const ChatWidget: React.FC = () => {
         if (!input.trim()) return;
 
         try {
-            await axios.post(`${API_BASE_URL}/api/chat/${userId}`, {
+            await axios.post(`/api/chat/${userId}`, {
                 id: crypto.randomUUID(),
                 message: input.trim(),
                 timestamp: new Date().toISOString().slice(0, 19),
