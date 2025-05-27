@@ -50,12 +50,25 @@ const ChatWidget: React.FC = () => {
         }
     };
 
+    const generateUUID = () => {
+        if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+            return crypto.randomUUID();
+        }
+
+        // fallback UUID v4 생성 방식
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    };
+
     const sendMessage = async () => {
         if (!input.trim()) return;
 
         try {
             await axios.post(`/api/chat/${userId}`, {
-                id: crypto.randomUUID(),
+                id: generateUUID(),
                 message: input.trim(),
                 timestamp: new Date().toISOString().slice(0, 19),
             });
